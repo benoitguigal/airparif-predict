@@ -1,0 +1,31 @@
+@font-face {
+	font-family: 'Karla', sans-serif;
+	src: url("https://fonts.googleapis.com/css?family=Karla") format("opentype");
+	font-weight: 300; 
+}
+
+html, body {
+	max-width: 100%;
+	overflow-x: hidden;
+	box-sizing: border-box;
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Karla', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+.title {
+	margin: auto;
+	text-align: center;
+}
+
+footer {
+	margin: auto;
+	margin-top: 100px;
+	text-align: center;
+}
+
+a {
+	color: rgb(166,166,166);
+}

@@ -1,0 +1,10 @@
+.idea
+data/download
+data/measures-auto
+node_modules/
+*.pyc# Created by .ignore support plugin (hsz.mobi)
+src
+package.json
+Dockerfile
+README.md
+

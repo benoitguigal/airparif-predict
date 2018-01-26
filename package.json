@@ -1,0 +1,28 @@
+{
+  "name": "airparif-predict",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "britecharts": "^2.4.11",
+    "d3": "^4.12.2",
+    "d3-selection": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "d3-selection": "^1.2.0",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Benoit Guigal <benoit.guigal@gmail.com>",
+  "license": "ISC"
+}

@@ -1,0 +1,5 @@
+.idea
+data/download
+data/measures-auto
+node_modules/
+*.pyc
