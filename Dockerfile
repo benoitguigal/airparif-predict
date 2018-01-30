@@ -9,4 +9,4 @@ ENV FLASK_APP "app/app.py"
 
 EXPOSE 5000
 
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:5000", "app.app:app"]
