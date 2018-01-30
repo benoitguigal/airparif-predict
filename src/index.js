@@ -196,6 +196,7 @@ function filterData(d0, d1, callback) {
 
 
 getData(function(){
+  d3.select(".container").style("display", "inline")
   createLineChart();  
   createBrushChart();
 })
