@@ -15723,7 +15723,7 @@ function getData(callback){
 }
 
 
-function createBrushChart() {
+function createBrushChart(callback) {
     let brushChart = brush(),
         brushMargin = {top:0, bottom: 50, left: 100, right: 50},
         brushContainer = d3Selection.select('.js-line-brush-chart-container'),
@@ -15746,16 +15746,12 @@ function createBrushChart() {
             });
 
         brushContainer.datum(brushDataAdapter(data)).call(brushChart);
-
-        // add xAxisMonth 
-        var svg = d3.select("brush-chart")
-        console.log(brushChart.dataByDate)
-
+        callback()
     }
 }
 
 
-function createLineChart() {
+function createLineChart(callback) {
   let lineChart = line(),
     chartTooltip = tooltip(),
     container = d3Selection.select('.js-line-chart-container'),
@@ -15786,6 +15782,7 @@ function createLineChart() {
     const tooltipContainer = d3Selection.select('.js-line-chart-container .metadata-group .hover-marker');
     tooltipContainer.datum([]).call(chartTooltip);
 
+    callback()
   }
 }
 
@@ -15893,10 +15890,16 @@ function filterData(d0, d1, callback) {
 
 
 getData(function(){
-  d3.select(".container").style("display", "inline")
-  createLineChart();  
-  createBrushChart();
-})
+  const lineChartPromise = new Promise(function(resolve){
+    createLineChart(resolve);
+  });
+  const brushChartPromise = new Promise(function(resolve){
+    createBrushChart(resolve)
+  });
+  Promise.all([lineChartPromise, brushChartPromise]).then(function(){
+    d3.selectAll("footer, svg, .title").style("display", "block");
+  });
+});
 
 
 
@@ -15941,7 +15944,7 @@ exports = module.exports = __webpack_require__(373)(false);
 
 
 // module
-exports.push([module.i, "@font-face {\n\tfont-family: 'Karla', sans-serif;\n\tsrc: url(\"https://fonts.googleapis.com/css?family=Karla\") format(\"opentype\");\n\tfont-weight: 300; \n}\n\nhtml, body {\n\tmax-width: 100%;\n\toverflow-x: hidden;\n\tbox-sizing: border-box;\n\tdisplay: block;\n\tmargin: 0px;\n\tpadding: 0px;\n\tfont-family: 'Karla', sans-serif;\n\t-webkit-font-smoothing: antialiased;\n}\n\n.container {\n\tdisplay: none;\n}\n\n.loader {\n    border: 16px solid #f3f3f3; /* Light grey */\n    border-top: 16px solid #3498db; /* Blue */\n    border-radius: 50%;\n    width: 120px;\n    height: 120px;\n    animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n}\n\n.title {\n\tmargin: auto;\n\ttext-align: center;\n}\n\nfooter {\n\tmargin: auto;\n\tmargin-top: 100px;\n\ttext-align: center;\n}\n\na {\n\tcolor: rgb(166,166,166);\n}\n", ""]);
+exports.push([module.i, "@font-face {\n\tfont-family: 'Karla', sans-serif;\n\tsrc: url(\"https://fonts.googleapis.com/css?family=Karla\") format(\"opentype\");\n\tfont-weight: 300; \n}\n\nhtml, body {\n\tmax-width: 100%;\n\toverflow-x: hidden;\n\tbox-sizing: border-box;\n\tdisplay: block;\n\tmargin: 0px;\n\tpadding: 0px;\n\tfont-family: 'Karla', sans-serif;\n\t-webkit-font-smoothing: antialiased;\n}\n\nfooter, svg, .title {\n\tdisplay: none;\n}\n\n\n.loader {\n    border: 16px solid #f3f3f3; /* Light grey */\n    border-top: 16px solid #3498db; /* Blue */\n    border-radius: 50%;\n    width: 120px;\n    height: 120px;\n    animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n    0% { transform: rotate(0deg); }\n    100% { transform: rotate(360deg); }\n}\n\n.title {\n\tmargin: auto;\n\ttext-align: center;\n}\n\nfooter {\n\tmargin: auto;\n\tmargin-top: 100px;\n\ttext-align: center;\n}\n\na {\n\tcolor: rgb(166,166,166);\n}\n", ""]);
 
 // exports
 

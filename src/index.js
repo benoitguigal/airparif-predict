@@ -26,7 +26,7 @@ function getData(callback){
 }
 
 
-function createBrushChart() {
+function createBrushChart(callback) {
     let brushChart = brush(),
         brushMargin = {top:0, bottom: 50, left: 100, right: 50},
         brushContainer = d3Selection.select('.js-line-brush-chart-container'),
@@ -49,16 +49,12 @@ function createBrushChart() {
             });
 
         brushContainer.datum(brushDataAdapter(data)).call(brushChart);
-
-        // add xAxisMonth 
-        var svg = d3.select("brush-chart")
-        console.log(brushChart.dataByDate)
-
+        callback()
     }
 }
 
 
-function createLineChart() {
+function createLineChart(callback) {
   let lineChart = line(),
     chartTooltip = tooltip(),
     container = d3Selection.select('.js-line-chart-container'),
@@ -89,6 +85,7 @@ function createLineChart() {
     const tooltipContainer = d3Selection.select('.js-line-chart-container .metadata-group .hover-marker');
     tooltipContainer.datum([]).call(chartTooltip);
 
+    callback()
   }
 }
 
@@ -196,9 +193,15 @@ function filterData(d0, d1, callback) {
 
 
 getData(function(){
-  d3.select(".container").style("display", "inline")
-  createLineChart();  
-  createBrushChart();
-})
+  const lineChartPromise = new Promise(function(resolve){
+    createLineChart(resolve);
+  });
+  const brushChartPromise = new Promise(function(resolve){
+    createBrushChart(resolve)
+  });
+  Promise.all([lineChartPromise, brushChartPromise]).then(function(){
+    d3.selectAll("footer, svg, .title").style("display", "block");
+  });
+});
 
 
